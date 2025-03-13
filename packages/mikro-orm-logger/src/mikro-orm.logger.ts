@@ -1,8 +1,8 @@
+import type { Attributes }                       from '@atls/logger'
 import type { Logger as ILogger }                from '@mikro-orm/core'
 import type { LoggerNamespace }                  from '@mikro-orm/core'
 import type { LogContext }                       from '@mikro-orm/core'
 import type { LoggerOptions }                    from '@mikro-orm/core'
-import type { LogAttributes }                    from '@atls/logger'
 
 import { Logger }                                from '@atls/logger'
 
@@ -13,20 +13,24 @@ import { LOGGER_CONNECTION_NAME_ATTRIBUTE_NAME } from './mikro-orm.logger.consta
 import { LOGGER_TOOK_ATTRIBUTE_NAME }            from './mikro-orm.logger.constants.js'
 
 export class MikroORMLogger implements ILogger {
-  public debugMode = this.options.debugMode ?? false
+  public debugMode: Array<LoggerNamespace> | boolean = false
 
   #logger: Logger = new Logger('mikro-orm')
 
-  constructor(private readonly options: LoggerOptions) {}
+  constructor(private readonly options: LoggerOptions) {
+    this.debugMode = options.debugMode ?? false
+  }
 
   setDebugMode(debugMode: Array<LoggerNamespace> | boolean): void {
     this.debugMode = debugMode
   }
 
   isEnabled(namespace: LoggerNamespace): boolean {
-    return (
-      !!this.debugMode && (!Array.isArray(this.debugMode) || this.debugMode.includes(namespace))
-    )
+    if (typeof this.debugMode === 'boolean') {
+      return this.debugMode
+    }
+
+    return this.debugMode?.includes(namespace)
   }
 
   log(namespace: LoggerNamespace, message: string, context?: LogContext): void {
@@ -36,13 +40,14 @@ export class MikroORMLogger implements ILogger {
 
     const msg = message.replace(/\n/g, '').replace(/ +/g, ' ').trim()
 
-    const attributes: LogAttributes = {}
+    const attributes: Attributes = {}
 
     if (context?.query) {
       attributes[LOGGER_SQL_ATTRIBUTE_NAME] = context.query
     }
 
     if (context?.params) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       attributes[LOGGER_PARAMS_ATTRIBUTE_NAME] = context.params as Array<any>
     }
 
