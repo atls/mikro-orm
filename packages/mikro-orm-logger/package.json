@@ -1,5 +1,5 @@
 {
-  "name": "@atls/mikro-orm-query-builder",
+  "name": "@atls/mikro-orm-logger",
   "version": "0.0.0",
   "license": "BSD-3-Clause",
   "type": "module",
@@ -17,22 +17,18 @@
     "postpack": "rm -rf dist"
   },
   "dependencies": {
-    "@atls/query-types": "0.0.1",
-    "@mikro-orm/postgresql": "*",
-    "lodash.set": "4.3.2"
+    "@atls/logger": "^0.0.2"
   },
   "devDependencies": {
-    "@types/lodash.set": "4.3.9"
+    "@jest/globals": "^29.7.0",
+    "@mikro-orm/core": "^6.1.3",
+    "@types/node": "^20.11.17"
   },
   "peerDependencies": {
-    "@mikro-orm/postgresql": "*"
-  },
-  "peerDependenciesMeta": {
-    "@mikro-orm/core": {
-      "optional": true
-    }
+    "@mikro-orm/core": "^5"
   },
   "publishConfig": {
+    "access": "public",
     "exports": {
       "./package.json": "./package.json",
       ".": {
