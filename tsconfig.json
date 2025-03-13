@@ -24,5 +24,7 @@
     "target": "es2019",
     "jsx": "react"
   },
-  "include": []
+  "include": [
+    "packages/**/*"
+  ]
 }
