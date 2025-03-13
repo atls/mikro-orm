@@ -1,0 +1,5 @@
+export const LOGGER_SQL_ATTRIBUTE_NAME = '@mikro-orm-sql'
+export const LOGGER_PARAMS_ATTRIBUTE_NAME = '@mikro-orm-params'
+export const LOGGER_CONNECTION_TYPE_ATTRIBUTE_NAME = '@mikro-orm-connection-type'
+export const LOGGER_CONNECTION_NAME_ATTRIBUTE_NAME = '@mikro-orm-connection-name'
+export const LOGGER_TOOK_ATTRIBUTE_NAME = '@mikro-orm-took'

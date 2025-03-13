@@ -1,0 +1,42 @@
+{
+  "name": "@atls/mikro-orm-logger",
+  "version": "0.0.0",
+  "license": "BSD-3-Clause",
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": "./src/index.ts"
+  },
+  "main": "src/index.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "yarn library build",
+    "prepack": "yarn run build",
+    "postpack": "rm -rf dist"
+  },
+  "dependencies": {
+    "@atls/logger": "0.0.3"
+  },
+  "devDependencies": {
+    "@mikro-orm/core": "6.4.9",
+    "@types/node": "22.13.10"
+  },
+  "peerDependencies": {
+    "@mikro-orm/core": "^5 || ^6"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      "./package.json": "./package.json",
+      ".": {
+        "import": "./dist/index.js",
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "main": "dist/index.js",
+    "typings": "dist/index.d.ts"
+  }
+}

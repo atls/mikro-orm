@@ -1,6 +1,6 @@
 {
   "name": "@atls/mikro-orm-query-builder",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "license": "BSD-3-Clause",
   "type": "module",
   "exports": {
@@ -17,12 +17,12 @@
     "postpack": "rm -rf dist"
   },
   "dependencies": {
-    "@atls/query-types": "^0.0.1",
+    "@atls/query-types": "0.0.1",
     "@mikro-orm/postgresql": "*",
-    "lodash.set": "^4.3.2"
+    "lodash.set": "4.3.2"
   },
   "devDependencies": {
-    "@types/lodash.set": "^4.3.9"
+    "@types/lodash.set": "4.3.9"
   },
   "peerDependencies": {
     "@mikro-orm/postgresql": "*"
