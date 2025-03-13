@@ -9,13 +9,16 @@
     "@types/lodash": "4.14.198"
   },
   "devDependencies": {
-    "@atls/code-runtime": "2.1.2",
+    "@atls/code-runtime": "2.1.7",
     "@types/eslint": "9.6.1",
-    "@types/node": "22.10.2",
+    "@types/node": "22.13.10",
     "eslint": "9.17.0",
     "typescript": "5.5.4"
   },
-  "packageManager": "yarn@4.6.0",
+  "packageManager": "yarn@4.7.0",
+  "formatterIgnorePatterns": [
+    "**/*/CHANGELOG.md"
+  ],
   "tools": {
     "schematic": {
       "collection": "@atls/schematics",
