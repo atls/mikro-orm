@@ -4933,6 +4933,7 @@ __metadata:
     "@types/node": "npm:22.13.10"
     eslint: "npm:9.17.0"
     typescript: "npm:5.5.4"
+    undici-types: "npm:6.20.0"
   languageName: unknown
   linkType: soft
 
@@ -5173,7 +5174,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici-types@npm:~6.20.0":
+"undici-types@npm:6.20.0, undici-types@npm:~6.20.0":
   version: 6.20.0
   resolution: "undici-types@npm:6.20.0"
   checksum: 10c0/68e659a98898d6a836a9a59e6adf14a5d799707f5ea629433e025ac90d239f75e408e2e5ff086afc3cace26f8b26ee52155293564593fbb4a2f666af57fc59bf
