@@ -41,7 +41,8 @@ const RAW_RUNTIME_STATE =
           ["@types/eslint", "npm:9.6.1"],\
           ["@types/node", "npm:22.13.10"],\
           ["eslint", "virtual:208dfc1d93e05ff9c00fb952ce691c41af20c59e3e7f579a5d21851d280c33f5ace44df8866f749410cb28841b63023611d6ed185af6fd090ecb1aad4d4d4429#npm:9.17.0"],\
-          ["typescript", "patch:typescript@npm%3A5.5.4#optional!builtin<compat/typescript>::version=5.5.4&hash=379a07"]\
+          ["typescript", "patch:typescript@npm%3A5.5.4#optional!builtin<compat/typescript>::version=5.5.4&hash=379a07"],\
+          ["undici-types", "npm:6.20.0"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -6002,7 +6003,8 @@ const RAW_RUNTIME_STATE =
           ["@types/eslint", "npm:9.6.1"],\
           ["@types/node", "npm:22.13.10"],\
           ["eslint", "virtual:208dfc1d93e05ff9c00fb952ce691c41af20c59e3e7f579a5d21851d280c33f5ace44df8866f749410cb28841b63023611d6ed185af6fd090ecb1aad4d4d4429#npm:9.17.0"],\
-          ["typescript", "patch:typescript@npm%3A5.5.4#optional!builtin<compat/typescript>::version=5.5.4&hash=379a07"]\
+          ["typescript", "patch:typescript@npm%3A5.5.4#optional!builtin<compat/typescript>::version=5.5.4&hash=379a07"],\
+          ["undici-types", "npm:6.20.0"]\
         ],\
         "linkType": "SOFT"\
       }]\

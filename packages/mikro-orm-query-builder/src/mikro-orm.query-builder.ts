@@ -3,6 +3,32 @@ import type { QueryBuilder } from '@mikro-orm/postgresql'
 import { Query }             from '@atls/query-types'
 import set                   from 'lodash.set'
 
+type ConditionQuery<TConditions> = {
+  conditions?: TConditions
+  operator?: Query.Operator
+}
+
+type ConditionExtractor<TConditions, TValue = unknown> = {
+  key: string
+  extract: (conditions: TConditions) => TValue | undefined
+}
+
+type EqualityCondition<TValue> = { eq?: { value: TValue } }
+
+type InclusionCondition<TValue> = { in?: { values: Array<TValue> } }
+
+type ExistenceCondition = { exists?: { value: boolean } }
+
+type ContainsCondition = { contains?: { value: string } }
+
+type IdConditions = EqualityCondition<string> & ExistenceCondition & InclusionCondition<string>
+
+type DateConditions = EqualityCondition<Date> & ExistenceCondition
+
+type StringConditions = ContainsCondition & EqualityCondition<string> & InclusionCondition<string>
+
+type NumberConditions = EqualityCondition<number> & InclusionCondition<number>
+
 export class MikroORMQueryBuilder<T extends object> {
   #take?: number
 
@@ -42,181 +68,57 @@ export class MikroORMQueryBuilder<T extends object> {
   }
 
   id(field: string, query?: Query.IDType): MikroORMQueryBuilder<T> {
-    if (field && query?.conditions && Object.keys(query.conditions).length > 0) {
-      const queries: { $eq?: string; $in?: Array<string>; $exists?: boolean } = {}
-
-      if (query.conditions.eq) {
-        queries.$eq = query.conditions.eq.value
-      }
-
-      if (query.conditions.in) {
-        queries.$in = query.conditions.in.values
-      }
-
-      if (query.conditions.exists) {
-        queries.$exists = query.conditions.exists.value
-      }
-
-      if (Object.keys(queries).length === 1) {
-        this.qb.andWhere(
-          set(
-            {},
-            field,
-            Object.keys(queries).reduce(
-              (result, key) => ({
-                ...result,
-                [key]: queries[key as keyof typeof queries],
-              }),
-              {}
-            )
-          )
-        )
-      } else if (Object.keys(queries).length > 1) {
-        const operator =
-          (query.operator || Query.Operator.AND) === Query.Operator.AND ? '$and' : '$or'
-
-        this.qb.andWhere(
-          set({}, field, {
-            [operator]: Object.keys(queries).map((key) => ({
-              [key]: queries[key as keyof typeof queries],
-            })),
-          })
-        )
-      }
-    }
+    this.#applyConditions<IdConditions>(field, query, [
+      { key: '$eq', extract: ({ eq }: IdConditions): string | undefined => eq?.value },
+      {
+        key: '$in',
+        extract: ({ in: inCondition }: IdConditions): Array<string> | undefined =>
+          inCondition?.values,
+      },
+      { key: '$exists', extract: ({ exists }: IdConditions): boolean | undefined => exists?.value },
+    ])
 
     return this
   }
 
   date(field: string, query?: Query.DateType): MikroORMQueryBuilder<T> {
-    if (field && query?.conditions && Object.keys(query.conditions).length > 0) {
-      const queries: { $eq?: Date; $exists?: boolean } = {}
-
-      if (query.conditions.eq) {
-        queries.$eq = query.conditions.eq.value
-      }
-
-      if (query.conditions.exists) {
-        queries.$exists = query.conditions.exists.value
-      }
-
-      if (Object.keys(queries).length === 1) {
-        this.qb.andWhere(
-          set(
-            {},
-            field,
-            Object.keys(queries).reduce(
-              (result, key) => ({
-                ...result,
-                [key]: queries[key as keyof typeof queries],
-              }),
-              {}
-            )
-          )
-        )
-      } else if (Object.keys(queries).length > 1) {
-        const operator =
-          (query.operator || Query.Operator.AND) === Query.Operator.AND ? '$and' : '$or'
-
-        this.qb.andWhere(
-          set({}, field, {
-            [operator]: Object.keys(queries).map((key) => ({
-              [key]: queries[key as keyof typeof queries],
-            })),
-          })
-        )
-      }
-    }
+    this.#applyConditions<DateConditions>(field, query, [
+      { key: '$eq', extract: ({ eq }: DateConditions): Date | undefined => eq?.value },
+      {
+        key: '$exists',
+        extract: ({ exists }: DateConditions): boolean | undefined => exists?.value,
+      },
+    ])
 
     return this
   }
 
   string(field: string, query?: Query.StringType): MikroORMQueryBuilder<T> {
-    if (field && query?.conditions && Object.keys(query.conditions).length > 0) {
-      const queries: { $eq?: string; $in?: Array<string>; $ilike?: string } = {}
-
-      if (query.conditions.eq) {
-        queries.$eq = query.conditions.eq.value
-      }
-
-      if (query.conditions.in) {
-        queries.$in = query.conditions.in.values
-      }
-
-      if (query.conditions.contains) {
-        queries.$ilike = query.conditions.contains.value
-      }
-
-      if (Object.keys(queries).length === 1) {
-        this.qb.andWhere(
-          set(
-            {},
-            field,
-            Object.keys(queries).reduce(
-              (result, key) => ({
-                ...result,
-                [key]: queries[key as keyof typeof queries],
-              }),
-              {}
-            )
-          )
-        )
-      } else if (Object.keys(queries).length > 1) {
-        const operator =
-          (query.operator || Query.Operator.AND) === Query.Operator.AND ? '$and' : '$or'
-
-        this.qb.andWhere(
-          set({}, field, {
-            [operator]: Object.keys(queries).map((key) => ({
-              [key]: queries[key as keyof typeof queries],
-            })),
-          })
-        )
-      }
-    }
+    this.#applyConditions<StringConditions>(field, query, [
+      { key: '$eq', extract: ({ eq }: StringConditions): string | undefined => eq?.value },
+      {
+        key: '$in',
+        extract: ({ in: inCondition }: StringConditions): Array<string> | undefined =>
+          inCondition?.values,
+      },
+      {
+        key: '$ilike',
+        extract: ({ contains }: StringConditions): string | undefined => contains?.value,
+      },
+    ])
 
     return this
   }
 
   number(field: string, query?: Query.NumberType): MikroORMQueryBuilder<T> {
-    if (field && query?.conditions && Object.keys(query.conditions).length > 0) {
-      const queries: { $eq?: number; $in?: Array<number> } = {}
-
-      if (query.conditions.eq) {
-        queries.$eq = query.conditions.eq.value
-      }
-
-      if (query.conditions.in) {
-        queries.$in = query.conditions.in.values
-      }
-
-      if (Object.keys(queries).length === 1) {
-        this.qb.andWhere(
-          set(
-            {},
-            field,
-            Object.keys(queries).reduce(
-              (result, key) => ({
-                ...result,
-                [key]: queries[key as keyof typeof queries],
-              }),
-              {}
-            )
-          )
-        )
-      } else if (Object.keys(queries).length > 1) {
-        const operator =
-          (query.operator || Query.Operator.AND) === Query.Operator.AND ? '$and' : '$or'
-
-        this.qb.andWhere(
-          set({}, field, {
-            [operator]: Object.keys(queries).map((key) => ({
-              [key]: queries[key as keyof typeof queries],
-            })),
-          })
-        )
-      }
-    }
+    this.#applyConditions<NumberConditions>(field, query, [
+      { key: '$eq', extract: ({ eq }: NumberConditions): number | undefined => eq?.value },
+      {
+        key: '$in',
+        extract: ({ in: inCondition }: NumberConditions): Array<number> | undefined =>
+          inCondition?.values,
+      },
+    ])
 
     return this
   }
@@ -229,5 +131,45 @@ export class MikroORMQueryBuilder<T extends object> {
     }
 
     return [result.slice(0, this.#take - 1), result.length >= this.#take]
+  }
+
+  #applyConditions<TConditions extends object>(
+    field: string,
+    query: ConditionQuery<TConditions> | undefined,
+    extractors: Array<ConditionExtractor<TConditions>>
+  ): void {
+    const conditions = query?.conditions
+
+    if (!field || !conditions) {
+      return
+    }
+
+    const collected = extractors.reduce<Record<string, unknown>>((result, { key, extract }) => {
+      const value = extract(conditions)
+
+      return value === undefined ? result : { ...result, [key]: value }
+    }, {})
+
+    const keys = Object.keys(collected)
+
+    if (keys.length === 0) {
+      return
+    }
+
+    if (keys.length === 1) {
+      const [singleKey] = keys
+
+      this.qb.andWhere(set({}, field, { [singleKey]: collected[singleKey] }))
+
+      return
+    }
+
+    const operator = (query?.operator || Query.Operator.AND) === Query.Operator.AND ? '$and' : '$or'
+
+    this.qb.andWhere(
+      set({}, field, {
+        [operator]: keys.map((key) => ({ [key]: collected[key] })),
+      })
+    )
   }
 }
