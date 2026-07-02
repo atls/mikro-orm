@@ -4313,7 +4313,7 @@ const RAW_RUNTIME_STATE =
           ["get-package-type", "npm:0.1.0"],\
           ["getopts", "npm:2.3.0"],\
           ["interpret", "npm:2.2.0"],\
-          ["lodash", "npm:4.18.1"],\
+          ["lodash", "npm:4.17.21"],\
           ["mysql", null],\
           ["mysql2", null],\
           ["pg", null],\
@@ -4426,10 +4426,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["lodash", [\
-      ["npm:4.18.1", {\
-        "packageLocation": "../.yarn/berry/cache/lodash-npm-4.18.1-a64c3070ac-10c0.zip/node_modules/lodash/",\
+      ["npm:4.17.21", {\
+        "packageLocation": "../.yarn/berry/cache/lodash-npm-4.17.21-6382451519-10c0.zip/node_modules/lodash/",\
         "packageDependencies": [\
-          ["lodash", "npm:4.18.1"]\
+          ["lodash", "npm:4.17.21"]\
         ],\
         "linkType": "HARD"\
       }]\
