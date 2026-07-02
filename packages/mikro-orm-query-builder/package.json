@@ -18,19 +18,15 @@
   },
   "dependencies": {
     "@atls/query-types": "0.0.1",
-    "@mikro-orm/postgresql": "*",
     "lodash.set": "4.3.2"
   },
   "devDependencies": {
+    "@mikro-orm/core": "6.4.16",
+    "@mikro-orm/postgresql": "6.4.16",
     "@types/lodash.set": "4.3.9"
   },
   "peerDependencies": {
-    "@mikro-orm/postgresql": "*"
-  },
-  "peerDependenciesMeta": {
-    "@mikro-orm/core": {
-      "optional": true
-    }
+    "@mikro-orm/postgresql": "^6"
   },
   "publishConfig": {
     "exports": {
