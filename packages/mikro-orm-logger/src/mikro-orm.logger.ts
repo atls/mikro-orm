@@ -30,7 +30,7 @@ export class MikroORMLogger implements ILogger {
       return this.debugMode
     }
 
-    return this.debugMode?.includes(namespace)
+    return this.debugMode.includes(namespace)
   }
 
   log(namespace: LoggerNamespace, message: string, context?: LogContext): void {
