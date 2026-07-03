@@ -52,7 +52,7 @@ export class MikroORMQueryBuilder<T extends object> {
     if (pager?.take) {
       this.#take = pager.take + 1
 
-      this.qb.limit(this.#take, pager?.offset || 0)
+      this.qb.limit(this.#take, pager.offset || 0)
     }
 
     return this
@@ -170,7 +170,7 @@ export class MikroORMQueryBuilder<T extends object> {
       return
     }
 
-    const operator = (query?.operator || Query.Operator.AND) === Query.Operator.AND ? '$and' : '$or'
+    const operator = (query.operator || Query.Operator.AND) === Query.Operator.AND ? '$and' : '$or'
 
     this.qb.andWhere(
       toFilterQuery<T>(

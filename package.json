@@ -9,14 +9,14 @@
     "@types/lodash": "4.14.198"
   },
   "devDependencies": {
-    "@atls/code-runtime": "2.1.7",
+    "@atls/raijin": "0.5.2",
     "@types/eslint": "9.6.1",
     "@types/node": "22.13.10",
     "eslint": "9.17.0",
     "typescript": "5.5.4",
     "undici-types": "6.20.0"
   },
-  "packageManager": "yarn@4.7.0",
+  "packageManager": "yarn@4.14.1",
   "formatterIgnorePatterns": [
     "**/*/CHANGELOG.md"
   ],
