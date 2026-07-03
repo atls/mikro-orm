@@ -1,5 +1,12 @@
 
 
+## [0.0.1](https://github.com/atls/mikro-orm/compare/@atls/mikro-orm-logger@0.0.1...@atls/mikro-orm-logger@0.0.1) (2026-07-03)
+
+
+
+
+
+
 ## 0.0.1 (2025-03-13)
 
 

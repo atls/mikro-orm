@@ -1,5 +1,12 @@
 
 
+## [0.0.2](https://github.com/atls/mikro-orm/compare/@atls/mikro-orm-query-builder@0.0.2...@atls/mikro-orm-query-builder@0.0.2) (2026-07-03)
+
+
+
+
+
+
 ## [0.0.2](https://github.com/atls/mikro-orm/compare/@atls/mikro-orm-query-builder@0.0.0...@atls/mikro-orm-query-builder@0.0.2) (2025-11-20)
 
 
