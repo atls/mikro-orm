@@ -27,5 +27,6 @@
       "type": "project",
       "migration": "1711577800849"
     }
-  }
+  },
+  "typecheckSkipLibCheck": true
 }

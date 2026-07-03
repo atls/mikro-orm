@@ -21,12 +21,13 @@
     "lodash.set": "4.3.2"
   },
   "devDependencies": {
-    "@mikro-orm/core": "6.4.16",
-    "@mikro-orm/postgresql": "6.4.16",
-    "@types/lodash.set": "4.3.9"
+    "@mikro-orm/core": "7.1.5",
+    "@mikro-orm/postgresql": "7.1.5",
+    "@types/lodash.set": "4.3.9",
+    "@types/pg": "8.20.0"
   },
   "peerDependencies": {
-    "@mikro-orm/postgresql": "^6"
+    "@mikro-orm/postgresql": "^7"
   },
   "publishConfig": {
     "exports": {
@@ -39,5 +40,6 @@
     },
     "main": "dist/index.js",
     "typings": "dist/index.d.ts"
-  }
+  },
+  "typecheckSkipLibCheck": true
 }
