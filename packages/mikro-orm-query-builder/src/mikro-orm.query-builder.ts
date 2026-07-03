@@ -1,7 +1,8 @@
-import type { QueryBuilder } from '@mikro-orm/postgresql'
+import type { QBFilterQuery } from '@mikro-orm/postgresql'
+import type { QueryBuilder }  from '@mikro-orm/postgresql'
 
-import { Query }             from '@atls/query-types'
-import set                   from 'lodash.set'
+import { Query }              from '@atls/query-types'
+import set                    from 'lodash.set'
 
 type ConditionQuery<TConditions> = {
   conditions?: TConditions
@@ -28,6 +29,9 @@ type DateConditions = EqualityCondition<Date> & ExistenceCondition
 type StringConditions = ContainsCondition & EqualityCondition<string> & InclusionCondition<string>
 
 type NumberConditions = EqualityCondition<number> & InclusionCondition<number>
+
+const toFilterQuery = <T extends object>(value: object): QBFilterQuery<T> =>
+  value as QBFilterQuery<T>
 
 export class MikroORMQueryBuilder<T extends object> {
   #take?: number
@@ -56,12 +60,14 @@ export class MikroORMQueryBuilder<T extends object> {
 
   search(fields?: Array<Query.SearchField>, value?: string): MikroORMQueryBuilder<T> {
     if (value && fields && fields.length > 0) {
-      this.qb.andWhere({
-        $or: fields.map((field) =>
-          set({}, field.path, {
-            $ilike: value,
-          })),
-      })
+      this.qb.andWhere(
+        toFilterQuery<T>({
+          $or: fields.map((field) =>
+            set({}, field.path, {
+              $ilike: value,
+            })),
+        })
+      )
     }
 
     return this
@@ -159,7 +165,7 @@ export class MikroORMQueryBuilder<T extends object> {
     if (keys.length === 1) {
       const [singleKey] = keys
 
-      this.qb.andWhere(set({}, field, { [singleKey]: collected[singleKey] }))
+      this.qb.andWhere(toFilterQuery<T>(set({}, field, { [singleKey]: collected[singleKey] })))
 
       return
     }
@@ -167,9 +173,11 @@ export class MikroORMQueryBuilder<T extends object> {
     const operator = (query?.operator || Query.Operator.AND) === Query.Operator.AND ? '$and' : '$or'
 
     this.qb.andWhere(
-      set({}, field, {
-        [operator]: keys.map((key) => ({ [key]: collected[key] })),
-      })
+      toFilterQuery<T>(
+        set({}, field, {
+          [operator]: keys.map((key) => ({ [key]: collected[key] })),
+        })
+      )
     )
   }
 }
