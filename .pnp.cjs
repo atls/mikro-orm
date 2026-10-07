@@ -132,6 +132,7 @@ const RAW_RUNTIME_STATE =
           ["@mikro-orm/core", "virtual:1ca4435356fd784bfb6e75614e4054cf0b80b2c95d69a485c0fe922a9e91bd052175ac51da53b5ca9f9dc472eda064640e70406fd8d39b482958818d1cfac7b1#npm:7.1.5"],\
           ["@mikro-orm/postgresql", "virtual:9e3cffcedcaff5bfa5a21c1329c92129a0ea0b352e6ba63d4a623cf257bf54c17316818be91bf47d39c7291940d81c181d4b0cff9073bec2888d31d8a8143df2#npm:7.1.5"],\
           ["@types/lodash.set", "npm:4.3.9"],\
+          ["@types/node", "npm:24.19.1"],\
           ["@types/pg", "npm:8.20.0"],\
           ["lodash.set", "npm:4.3.2"]\
         ],\
@@ -1224,6 +1225,14 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@types/node", "npm:22.13.10"],\
           ["undici-types", "npm:6.20.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:24.19.1", {\
+        "packageLocation": "../.yarn/berry/cache/@types-node-npm-24.19.1-7ff7cdf8c6-10c0.zip/node_modules/@types/node/",\
+        "packageDependencies": [\
+          ["@types/node", "npm:24.19.1"],\
+          ["undici-types", "npm:7.24.6"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -6840,6 +6849,13 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../.yarn/berry/cache/undici-types-npm-6.20.0-bd21e669af-10c0.zip/node_modules/undici-types/",\
         "packageDependencies": [\
           ["undici-types", "npm:6.20.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:7.24.6", {\
+        "packageLocation": "../.yarn/berry/cache/undici-types-npm-7.24.6-8759b28e34-10c0.zip/node_modules/undici-types/",\
+        "packageDependencies": [\
+          ["undici-types", "npm:7.24.6"]\
         ],\
         "linkType": "HARD"\
       }]\
