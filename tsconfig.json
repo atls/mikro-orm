@@ -47,8 +47,7 @@
     "target": "es2022",
     "jsx": "react",
     "outDir": "./dist",
-    "noImplicitOverride": true,
-    "skipLibCheck": true
+    "noImplicitOverride": true
   },
   "include": ["project.types.d.ts", "packages/**/*"]
 }

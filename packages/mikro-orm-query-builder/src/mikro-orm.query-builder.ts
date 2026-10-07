@@ -30,8 +30,7 @@ type StringConditions = ContainsCondition & EqualityCondition<string> & Inclusio
 
 type NumberConditions = EqualityCondition<number> & InclusionCondition<number>
 
-const toFilterQuery = <T extends object>(value: object): QBFilterQuery<T> =>
-  value as QBFilterQuery<T>
+const toFilterQuery = <T extends object>(value: object): QBFilterQuery<T> => value
 
 export class MikroORMQueryBuilder<T extends object> {
   #take?: number

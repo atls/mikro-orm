@@ -1,0 +1,3 @@
+releases:
+  "@atls/mikro-orm-logger": patch
+  "@atls/mikro-orm-query-builder": patch
